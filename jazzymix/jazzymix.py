@@ -108,4 +108,4 @@ def main():
     confirm_booking(user_info, selected_services, total_cost)
 
 if __name__ == "__main__":
-    main()
+    main() 
