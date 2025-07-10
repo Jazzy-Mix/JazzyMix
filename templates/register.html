@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Information</title>
+    <title>User Registration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
         }
 
         header {
-            background-color: #333;
-            color: #fff;
+            background-color: rgba(0, 0, 0, 0.7);
             padding: 10px 0;
             text-align: center;
         }
@@ -22,9 +25,13 @@
         section {
             padding: 20px;
             margin: 20px;
-            background-color: #fff;
+            background-color: rgba(0, 0, 0, 0.7);
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        section h2 {
+            color: #fff;
         }
 
         form {
@@ -34,6 +41,7 @@
 
         form label {
             margin-top: 10px;
+            color: #fff;
         }
 
         form input {
@@ -66,11 +74,11 @@
 </head>
 <body>
     <header>
-        <h1>User Information</h1>
+        <h1>User Registration</h1>
     </header>
     <section id="userForm">
-        <h2>Enter Your Details</h2>
-        <form id="userDetailsForm">
+        <h2>Register</h2>
+        <form id="registrationForm">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
             
@@ -79,13 +87,13 @@
             
             <label for="phone">Phone:</label>
             <input type="tel" id="phone" name="phone" required>
-        
-            <button type="submit">Next</button>
+            
+            <button type="submit">Register</button>
         </form>
         <div id="message"></div>
     </section>
     <script>
-        document.getElementById('userDetailsForm').addEventListener('submit', function(event) {
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             const formData = new FormData(this);
@@ -104,8 +112,8 @@
             // Store user data in local storage or send to server
             localStorage.setItem('userData', JSON.stringify(data));
 
-            // Redirect to payment page
-            window.location.href = 'payment.html';
+            // Redirect to user.html
+            window.location.href = 'user.html';
         });
     </script>
 </body>

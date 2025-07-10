@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        section {
+            background-color: rgba(236, 110, 6, 0.76);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(190, 163, 5, 0.61);
+            width: 300px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            margin-top: 10px;
+            color: #fff;
+        }
+
+        form input {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #e20b0b88;
+            border-radius: 5px;
+        }
+
+        form button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e6e211af;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+
+        #message {
+            margin-top: 10px;
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+    </header>
+    <section id="login">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id="message"></div>
+    </section>
+    <script>
+        const adminPassword = "admin123"; // Replace with a secure password
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+
+            if (password === adminPassword) {
+                // Redirect to admin dashboard or show admin content
+                messageDiv.style.color = 'orange';
+                messageDiv.textContent = 'Login successful!';
+                // Optionally, redirect to another page or show admin content
+                // window.location.href = 'admin_dashboard.html'; // Uncomment if you have a separate admin dashboard page
+            } else {
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = 'Incorrect password. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>

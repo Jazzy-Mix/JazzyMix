@@ -5,7 +5,7 @@ import datetime
 import subprocess
 import json
 
-app = Flask(__name__, static_folder='.')
+app = Flask(__name__, static_folder='static')
 
 # M-Pesa Configuration
 MPESA_CONSUMER_KEY = 'YOUR_MPESA_CONSUMER_KEY'
@@ -25,19 +25,22 @@ PAYPAL_PAYMENT_URL = 'https://api.sandbox.paypal.com/v1/payments/payment'
 PHP_SCRIPT_PATH = 'daraja.php'
 
 # Define the services and their prices
-services = {
-    "Single Track Mixing": 250,
-    "EP Mixing (3-5 Tracks)": 500,
-    "Album Mixing (6+ Tracks)": 650,
-    "Single Track Mastering": 100,
-    "EP Mastering (3-5 Tracks)": 250,
-    "Album Mastering (6+ Tracks)": 500,
-    "Beat Production (Instrumental Only)": 200,
-    "Full Song Production": 400,
-    "Full Song Prod + Mix & Master": 450,
-    "Recording Session (Per Hour)": 50
-}
+services = [
+    {"name": "Single Track Mixing", "price": 250},
+    {"name": "EP Mixing (3-5 Tracks)", "price": 500},
+    {"name": "Album Mixing (6+ Tracks)", "price": 650},
+    {"name": "Single Track Mastering", "price": 100},
+    {"name": "EP Mastering (3-5 Tracks)", "price": 250},
+    {"name": "Album Mastering (6+ Tracks)", "price": 500},
+    {"name": "Beat Production (Instrumental Only)", "price": 200},
+    {"name": "Full Song Production", "price": 400},
+    {"name": "Full Song Prod + Mix & Master", "price": 450},
+    {"name": "Recording Session (Per Hour)", "price": 50}
+]
+# Create a dictionary for price lookups
+service_prices = {service["name"]: service["price"] for service in services}
 
+    # Removed misplaced return statement
 def calculate_total_cost(selected_services):
     total_cost = 0
     for service, price in selected_services.items():
@@ -46,7 +49,14 @@ def calculate_total_cost(selected_services):
 
 @app.route('/')
 def index():
+    print("Services:", services)
+    print("Type of services:", type(services))
     return render_template('index.html', services=services)
+
+@app.route('/admin')
+def admin():
+    
+    return render_template('admin.html')
 
 @app.route('/select-services', methods=['POST'])
 def select_services():

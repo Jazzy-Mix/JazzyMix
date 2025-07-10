@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Studio Booking</title>
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to JazzyMix Music Studio</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#booking">Book a Session</a></li>
+            <li><a href="/admin.html">Admin Login</a></li>
+            <li><a href="/register.html">Register</a></li>
+        </ul>
+    </nav>
+    <section id="services">
+        <h2>Our Services</h2>
+        <form id="serviceForm">
+            <!-- Fixed iteration over services -->
+            {% for service in services %}
+            <div class="service-item">
+                <img src="/static/images/{{ service.name }}.jpg" alt="{{ service.name }}">                <p>{{ service.name }}: ${{ service.price }}</p>
+                <input type="checkbox" name="services" value="{{ service.name }}" id="service_{{ loop.index }}">
+                <label for="service_{{ loop.index }}"></label>
+                {% if "Tracks" in service.name %}
+                <div class="track-selector hidden" id="track_selector_{{ loop.index }}">
+                    <label for="{{ service.name }}_tracks">Number of Tracks:</label>
+                    <input type="number" id="{{ service.name }}_tracks" name="{{ service.name }}_tracks" min="{% if '3-5' in service.name %}3{% elif '6+' in service.name %}6{% endif %}">
+                </div>
+                {% elif "Recording Session" in service.name %}
+                <div class="track-selector hidden" id="track_selector_{{ loop.index }}">
+                    <label for="{{ service.name }}_hours">Hours:</label>
+                    <input type="number" id="{{ service.name }}_hours" name="{{ service.name }}_hours" min="1">
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit">Select Services</button>
+        </form>
+        <div id="message"></div>
+    </section>
+    <section id="booking" class="hidden">
+        <h2>Book a Session</h2>
+        <form id="bookingForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+            <button type="submit">Book Now</button>
+        </form>
+        <div id="confirmation"></div>
+    </section>
+    <section id="payment" class="hidden">
+        <h2>Payment</h2>
+        <form id="paymentDetailsForm">
+            <label for="paymentMethod">Payment Method:</label>
+            <select id="paymentMethod" name="paymentMethod" required>
+                <option value="mpesa">M-Pesa</option>
+                <option value="card">Debit/Credit Card</option>
+                <option value="paypal">PayPal</option>
+            </select>
+            <div id="mpesaFields" style="display: none;">
+                <label for="mpesaNumber">M-Pesa Number:</label>
+                <input type="tel" id="mpesaNumber" name="mpesaNumber" required>
+                <button type="submit">Pay with M-Pesa</button>
+            </div>
+            <div id="cardFields" style="display: none;">
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" id="cardNumber" name="cardNumber" required>
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" required>
+                <button type="submit">Pay with Card</button>
+            </div>
+            <div id="paypalFields" style="display: none;">
+                <button id="paypalButton" type="button">Pay with PayPal</button>
+            </div>
+            <div id="message"></div>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2025 JazzyMix Music Studio</p>
+    </footer>
+    <script>
+        // JavaScript logic for toggling track selectors
+        document.querySelectorAll('input[name="services"]').forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                const trackSelectorId = 'track_selector_' + (this.id.split('_')[1]);
+                const trackSelector = document.getElementById(trackSelectorId);
+                if (this.checked) {
+                    trackSelector.classList.remove('hidden');
+                } else {
+                    trackSelector.classList.add('hidden');
+                }
+            });
+        });
+
+        // Form submission logic (simplified for now)
+        document.getElementById('serviceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Service selection submitted!');
+        });
+
+        document.getElementById('bookingForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Booking form submitted!');
+        });
+
+        document.getElementById('paymentDetailsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Payment form submitted!');
+        });
+    </script>
+</body>
+</html>
